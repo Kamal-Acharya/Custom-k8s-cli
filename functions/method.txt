@@ -1,3 +1,0 @@
-api_client
-get_api_versions
-get_api_versions_with_http_info
