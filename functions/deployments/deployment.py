@@ -25,14 +25,18 @@ def list_deployment_by_labels(namespace,labels):
 def scale_deployment(namespace,deployment_name,replicas):
     api_instance = client.AppsV1Api()
     try:
+        scale_client= client.V1ScaleSpec(replicas=replicas)
+
         body = {
             "spec": {
-                "replicas": replicas
+                "replicas":  scale_client.replicas
             }
         }
         api_instance.patch_namespaced_deployment_scale(namespace=namespace,name=deployment_name,body=body)
         print("Deployment scaled to",replicas)
     except ApiException as e:
+        print(e)
+    except Exception as e:
         print(e)
 
 def restart_deployment(namespace,deployment_name,labels):
